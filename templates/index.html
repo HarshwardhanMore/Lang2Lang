@@ -1,0 +1,369 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lang2Lang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.png' %}" />
+    <style>
+      * {
+        padding: 0px;
+        margin: 0px;
+      }
+      html {
+        background: #222831;
+        color: #dddddd;
+        font-family: "Raleway", sans-serif;
+      }
+      html::-webkit-scrollbar {
+        display: none;
+      }
+      textarea::-webkit-scrollbar {
+        display: none;
+      }
+
+      .heading {
+        height: 10%;
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        /* margin-left: 10%; */
+        width: 90%;
+      }
+      .heading .span1 {
+        color: #f05454;
+        color: #dddddd;
+        /* text-decoration-line: overline;
+        text-decoration-color: #dddddd; */
+      }
+      .heading .span1 .two {
+        color: #dddddd;
+        color: #f05454;
+      }
+      .heading .span2 {
+        color: #dddddd;
+        text-decoration-line: underline;
+        text-decoration-color: #f05454;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+      }
+      .main {
+        width: 100%;
+        height: 90%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      form {
+        display: flex;
+        width: 90%;
+        height: 60%;
+        align-items: center;
+        justify-content: center;
+      }
+      .box1 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 50%;
+        height: 100%;
+      }
+      .box1 textarea {
+        width: 95%;
+        height: 60%;
+        border: 0px solid transparent;
+        padding: 10px;
+        font-size: 25px;
+        font-family: "Raleway", sans-serif;
+        background: transparent;
+        color: #dddddd;
+        text-align: justify;
+        resize: none;
+        /* border-right: 1px solid #dddddd13;
+        padding-right: 20px; */
+      }
+      .box2 {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        width: 50%;
+        height: 100%;
+      }
+      .box2 .output {
+        width: 95%;
+        height: 60%;
+        border: 0px solid transparent;
+        padding: 10px;
+        padding-left: 15px;
+        border-radius: 10px;
+        font-size: 25px;
+        font-family: "Raleway", sans-serif;
+        text-align: justify;
+        background: transparent;
+        /* background: #232a33; */
+        color: #dddddd;
+        resize: none;
+
+        background: #00000007;
+      }
+      *:focus {
+        outline: 0 !important;
+      }
+      .output {
+        /* width: 100%; */
+      }
+      .translateBtn {
+        border: 0px;
+        width: 5%;
+        height: 65%;
+        display: flex;
+        justify-content: center;
+        align-self: flex-end;
+        background: transparent;
+      }
+      .translateBtn .btn {
+        background: transparent;
+        border: 0px;
+        width: 100%;
+      }
+      .translateBtn .btn img {
+        width: 100%;
+        cursor: pointer;
+      }
+      .translateBtn .btn img:active {
+        transform: rotate(-180deg);
+        transition: all;
+        transition-duration: 0.4s;
+      }
+      .dropdown {
+        border: 0px;
+        width: 50%;
+        font-size: 20px;
+        padding: 7px 10px;
+        border-bottom: 2px solid #f05454;
+        background: transparent;
+        color: #f05454;
+        /* align-self: flex-start; */
+      }
+      .dropdown::-webkit-scrollbar {
+        display: none;
+      }
+
+      .dropdown > * {
+        background: #222831;
+        border: 0px;
+        padding: 10px;
+      }
+      /* .clearBtn {
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+        padding: 7px 10px;
+        font-size: 20px;
+        background: transparent;
+        border: 1px solid #dddddd;
+        color: #dddddd;
+        border-radius: 5px;
+        font-family: "Raleway", sans-serif;
+        z-index: 100;
+      }
+      .clearBtn:active {
+        background-color: #f05454;
+        border-color: #f05454;
+      } */
+
+      .btns {
+        position: absolute;
+        bottom: 5%;
+        left: 5%;
+      }
+      .btns > * {
+        padding: 7px 10px;
+        font-size: 20px;
+        background: transparent;
+        border: 1px solid #dddddd;
+        color: #dddddd;
+        border-radius: 5px;
+        font-family: "Raleway", sans-serif;
+        z-index: 100;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+      .btns .submitBtn {
+        background: #f05454;
+        border: 1px solid #f05454;
+        color: #dddddd;
+        font-weight: bold;
+      }
+      .btns .submitBtn:active {
+        background: #ef5f5f;
+      }
+      .btns .clearBtn:active {
+        background: #dddddd06;
+      }
+
+      @media screen and (max-width: 600px) {
+        body {
+          /* background-color: lightgreen; */
+        }
+
+        form {
+          display: flex;
+          flex-direction: column;
+          width: 90%;
+          /* height: 60%; */
+          align-items: center;
+          justify-content: center;
+        }
+        .box1 {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          width: 100%;
+          height: 50%;
+          /* border: 1px solid white; */
+        }
+        .box1 textarea {
+          width: 95%;
+          height: 60%;
+          border: 0px solid transparent;
+          padding: 10px;
+          font-size: 25px;
+          font-family: "Raleway", sans-serif;
+          background: transparent;
+          color: #dddddd;
+          text-align: justify;
+          resize: none;
+          /* border-right: 1px solid #dddddd13;
+        padding-right: 20px; */
+        }
+        .box2 {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: space-between;
+          width: 100%;
+          height: 50%;
+          /* border: 1px solid white; */
+        }
+        .box2 .output {
+          width: 95%;
+          height: 60%;
+          border: 0px solid transparent;
+          padding: 10px;
+          padding-left: 15px;
+          border-radius: 10px;
+          font-size: 25px;
+          font-family: "Raleway", sans-serif;
+          text-align: justify;
+          background: transparent;
+          /* background: #232a33; */
+          color: #dddddd;
+          resize: none;
+
+          background: #dddddd05;
+        }
+        .input {
+          font-size: 15px;
+        }
+        .output {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="heading">
+      <h1>
+        <span class="span1">Lang<span class="two">2</span>Lang</span>
+        <!-- <span class="span2"> Translator</span> -->
+      </h1>
+    </div>
+    <!-- <br /> -->
+
+    <div class="main">
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="box1">
+          <select name="language" id="language" class="dropdown">
+            <option value="en">English</option>
+          </select>
+          <textarea
+            name="lang1"
+            id="input"
+            placeholder="Text"
+            cols="30"
+            rows="10"
+          >
+{{input}}</textarea
+          >
+        </div>
+        <div class="translateBtn">
+          <!-- <button type="submit" class="btn">
+            <img src="{% static 'swap2.png' %}" alt="" />
+          </button> -->
+        </div>
+        <div class="box2">
+          <select name="language" id="language" class="dropdown">
+            {% for i in languageGuide %}
+            <option value="{{i.first}}">{{i.second}}</option>
+            {% endfor %}
+          </select>
+          {% comment %}
+          <div class="output">
+            {% endcomment %}
+            <!-- <text class="output">{{output1}}</text> -->
+            <textarea
+              class="output"
+              id="output"
+              placeholder="Translation"
+              cols="30"
+              rows="10"
+            >
+{{output1}}</textarea
+            >
+            <!-- <div class="lang2">{{output2}}</div> -->
+            {% comment %}
+          </div>
+          {% endcomment %}
+        </div>
+        <div class="btns">
+          <button type="submit" class="submitBtn">Translate</button>
+          <input
+            type="button"
+            id="clearBtn"
+            onclick="clearContent()"
+            class="clearBtn"
+            value="Clear"
+          />
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function clearContent() {
+        document.getElementById("output").value = "";
+        document.getElementById("input").value = "";
+      }
+    </script>
+  </body>
+</html>
