@@ -34,19 +34,6 @@ def home(request):
                 output1 = output.text
                 break
 
-    # if language == "mr":
-    #     output = translator.translate(initial, dest="mr")
-    # elif language == "hi":
-    #     output = translator.translate(initial, dest="hi")
-    # elif language == "de":
-    #     output = translator.translate(initial, dest="de")
-    # else:
-    #     output = translator.translate(initial, dest="en")
-
-    # print(output)
-
-    # for i in language_options:
-    #     print(i, language_options[i])
 
     context = {
         'input': initial,
