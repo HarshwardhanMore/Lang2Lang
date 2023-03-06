@@ -12,7 +12,7 @@ def home(request):
     language_options = googletrans.LANGUAGES
     languageGuide = []
     initial = ''
-    language = ''
+    language = 'eng'
     output = ''
     output1 = ''
 
@@ -30,10 +30,11 @@ def home(request):
 
         for i in languageGuide:
             if str(i["first"]) == str(language):
-                output = translator.translate(initial, dest=language)
+                output = initial
+                if (initial):
+                    output = translator.translate(initial, dest=language)
                 output1 = output.text
                 break
-
 
     context = {
         'input': initial,
